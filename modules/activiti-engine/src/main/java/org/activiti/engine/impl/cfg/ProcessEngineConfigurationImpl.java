@@ -237,6 +237,7 @@ import org.apache.ibatis.transaction.TransactionFactory;
 import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
 import org.apache.ibatis.transaction.managed.ManagedTransactionFactory;
 import org.apache.ibatis.type.JdbcType;
+import org.apache.ibatis.type.StringTypeHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -801,6 +802,8 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
   public static final String DATABASE_TYPE_POSTGRES = "postgres";
   public static final String DATABASE_TYPE_MSSQL = "mssql";
   public static final String DATABASE_TYPE_DB2 = "db2";
+  public static final String DATABASE_TYPE_INFORMIX="informix";
+  public static final String DATABASE_TYPE_SINODB="sinodb";
 
   protected static Properties getDefaultDatabaseTypeMappings() {
     Properties databaseTypeMappings = new Properties();
@@ -831,6 +834,8 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
     databaseTypeMappings.setProperty("DB2/PTX",DATABASE_TYPE_DB2);
     databaseTypeMappings.setProperty("DB2/2",DATABASE_TYPE_DB2);
     databaseTypeMappings.setProperty("DB2 UDB AS400", DATABASE_TYPE_DB2);
+    databaseTypeMappings.setProperty("Informix Dynamic Server", DATABASE_TYPE_INFORMIX);
+    databaseTypeMappings.setProperty("SinoDB Dynamic Server", DATABASE_TYPE_SINODB);
     return databaseTypeMappings;
   }
 
@@ -916,7 +921,8 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
   }
 
 	protected void initMybatisTypeHandlers(Configuration configuration) {
-	  configuration.getTypeHandlerRegistry().register(VariableType.class, JdbcType.VARCHAR, new IbatisVariableTypeHandler());
+    configuration.getTypeHandlerRegistry().register(VariableType.class, JdbcType.VARCHAR, new IbatisVariableTypeHandler());
+    configuration.getTypeHandlerRegistry().register(String.class, JdbcType.LONGVARCHAR, new StringTypeHandler());
   }
 
 	protected void initCustomMybatisMappers(Configuration configuration) {

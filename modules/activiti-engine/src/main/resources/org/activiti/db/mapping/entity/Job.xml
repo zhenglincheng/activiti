@@ -213,7 +213,19 @@
       and (PROCESS_INSTANCE_ID_ = #{parameter.pid})  
     ${limitAfter}   
   </select>
-  
+
+  <select id="selectExclusiveJobsToExecute_stringBoolean" parameterType="org.activiti.engine.impl.db.ListQueryParameterObject" resultMap="jobResultMap">
+    ${limitBefore}
+    select RES.* ${limitBetween}
+    from ${prefix}ACT_RU_JOB RES
+    where (RETRIES_ &gt; 0)
+    and (DUEDATE_ is null or DUEDATE_ &lt;= #{parameter.now, jdbcType=TIMESTAMP})
+    and (LOCK_OWNER_ is null or LOCK_EXP_TIME_ &lt;= #{parameter.now, jdbcType=TIMESTAMP})
+    and (EXCLUSIVE_ = 't')
+    and (PROCESS_INSTANCE_ID_ = #{parameter.pid})
+    ${limitAfter}
+  </select>
+
   <select id="selectJobsByConfiguration" parameterType="org.activiti.engine.impl.db.ListQueryParameterObject" resultMap="jobResultMap">
       select * from ${prefix}ACT_RU_JOB
       where HANDLER_TYPE_ = #{parameter.handlerType}

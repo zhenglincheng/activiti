@@ -27,7 +27,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 /**
  * @author Tom Baeyens
  */
-public class DbSqlSessionFactory implements SessionFactory {
+public class  DbSqlSessionFactory implements SessionFactory {
 
   protected static final Map<String, Map<String, String>> databaseSpecificStatements = new HashMap<String, Map<String,String>>();
   
@@ -201,6 +201,96 @@ public class DbSqlSessionFactory implements SessionFactory {
     addDatabaseSpecificStatement("mssql", "selectProcessInstanceWithVariablesByQueryCriteria", "selectProcessInstanceWithVariablesByQueryCriteria_mssql_or_db2");
     addDatabaseSpecificStatement("mssql", "selectHistoricProcessInstancesWithVariablesByQueryCriteria", "selectHistoricProcessInstancesWithVariablesByQueryCriteria_mssql_or_db2");
     addDatabaseSpecificStatement("mssql", "selectHistoricTaskInstancesWithVariablesByQueryCriteria", "selectHistoricTaskInstancesWithVariablesByQueryCriteria_mssql_or_db2");
+
+    //informix
+    databaseSpecificLimitBeforeStatements.put("informix", "SELECT SKIP #{firstResult} FIRST #{maxResults} * FROM ( ");
+    databaseSpecificLimitAfterStatements.put("informix", ")");
+    databaseSpecificLimitBetweenStatements.put("informix", "");
+    databaseOuterJoinLimitBetweenStatements.put("informix", "");
+    databaseSpecificOrderByStatements.put("informix", defaultOrderBy);
+    addDatabaseSpecificStatement("informix", "selectExclusiveJobsToExecute", "selectExclusiveJobsToExecute_stringBoolean");
+    addDatabaseSpecificStatement("informix", "bulkInsertVariableInstance", "insertVariableInstance_batch");
+    addDatabaseSpecificStatement("informix", "bulkInsertUser", "insertUser_batch");
+    addDatabaseSpecificStatement("informix", "bulkInsertTask", "insertTask_batch");
+    addDatabaseSpecificStatement("informix", "bulkInsertResource", "insertResource_batch");
+    addDatabaseSpecificStatement("informix", "bulkInsertProperty", "insertProperty_batch");
+    addDatabaseSpecificStatement("informix", "bulkInsertProcessDefinition", "insertProcessDefinition_batch");
+    addDatabaseSpecificStatement("informix", "bulkInsertModel", "insertModel_batch");
+    addDatabaseSpecificStatement("informix", "bulkInsertMembership", "insertMembership_batch");
+    addDatabaseSpecificStatement("informix", "bulkInsertTimer", "insertTimer_batch");
+    addDatabaseSpecificStatement("informix", "bulkInsertMessage", "insertMessage_batch");
+    addDatabaseSpecificStatement("informix", "bulkInsertIdentityInfo", "insertIdentityInfo_batch");
+    addDatabaseSpecificStatement("informix", "bulkInsertIdentityLink", "insertIdentityLink_batch");
+    addDatabaseSpecificStatement("informix", "bulkInsertMembership", "insertMembership_batch");
+    addDatabaseSpecificStatement("informix", "bulkInsertTimer", "insertTimer_batch");
+    addDatabaseSpecificStatement("informix", "bulkInsertMessage", "insertMessage_batch");
+    addDatabaseSpecificStatement("informix", "bulkInsertHistoricVariableInstance", "insertHistoricVariableInstance_batch");
+    addDatabaseSpecificStatement("informix", "bulkInsertHistoricTaskInstance", "insertHistoricTaskInstance_batch");
+    addDatabaseSpecificStatement("informix", "bulkInsertHistoricProcessInstance", "insertHistoricProcessInstance_batch");
+    addDatabaseSpecificStatement("informix", "bulkInsertHistoricIdentityLink", "insertHistoricIdentityLink_batch");
+    addDatabaseSpecificStatement("informix", "bulkInsertHistoricDetailVariableInstanceUpdate", "insertHistoricDetailVariableInstanceUpdate_batch");
+    addDatabaseSpecificStatement("informix", "bulkInsertHistoricFormProperty", "insertHistoricFormProperty_batch");
+    addDatabaseSpecificStatement("informix", "bulkInsertHistoricActivityInstance", "insertHistoricActivityInstance_batch");
+    addDatabaseSpecificStatement("informix", "bulkInsertGroup", "insertGroup_batch");
+    addDatabaseSpecificStatement("informix", "bulkInsertExecution", "insertExecution_batch");
+    addDatabaseSpecificStatement("informix", "bulkInsertMessageEventSubscription", "insertMessageEventSubscription_batch");
+    addDatabaseSpecificStatement("informix", "bulkInsertSignalEventSubscription", "insertSignalEventSubscription_batch");
+    addDatabaseSpecificStatement("informix", "bulkInsertCompensateEventSubscription", "insertCompensateEventSubscription_batch");
+    addDatabaseSpecificStatement("informix", "bulkInsertEventLogEntry", "insertEventLogEntry_batch");
+    addDatabaseSpecificStatement("informix", "bulkInsertDeployment", "insertDeployment_batch");
+    addDatabaseSpecificStatement("informix", "bulkInsertComment", "insertComment_batch");
+    addDatabaseSpecificStatement("informix", "bulkInsertByteArray", "insertByteArray_batch");
+    addDatabaseSpecificStatement("informix", "bulkInsertEventLogEntry", "insertEventLogEntry_batch");
+    addDatabaseSpecificStatement("informix", "bulkInsertDeployment", "insertDeployment_batch");
+    addDatabaseSpecificStatement("informix", "bulkInsertComment", "insertComment_batch");
+    addDatabaseSpecificStatement("informix", "bulkInsertByteArray", "insertByteArray_batch");
+    addDatabaseSpecificStatement("informix", "bulkInsertAttachment", "insertAttachment_batch");
+
+    //sinodb
+    databaseSpecificLimitBeforeStatements.put("sinodb", "SELECT SKIP #{firstResult} FIRST #{maxResults} * FROM ( ");
+    databaseSpecificLimitAfterStatements.put("sinodb", ")");
+    databaseSpecificLimitBetweenStatements.put("sinodb", "");
+    databaseOuterJoinLimitBetweenStatements.put("sinodb", "");
+    databaseSpecificOrderByStatements.put("sinodb", defaultOrderBy);
+//    addDatabaseSpecificStatement("sinodb", "insertByteArray", "insertByteArray_postgres");
+    addDatabaseSpecificStatement("sinodb", "selectExclusiveJobsToExecute", "selectExclusiveJobsToExecute_stringBoolean");
+//    addDatabaseSpecificStatement("sinodb", "selectUnlockedTimersByDuedate", "selectUnlockedTimersByDuedate_oracle");
+    addDatabaseSpecificStatement("sinodb", "bulkInsertVariableInstance", "insertVariableInstance_batch");
+    addDatabaseSpecificStatement("sinodb", "bulkInsertUser", "insertUser_batch");
+    addDatabaseSpecificStatement("sinodb", "bulkInsertTask", "insertTask_batch");
+    addDatabaseSpecificStatement("sinodb", "bulkInsertResource", "insertResource_batch");
+    addDatabaseSpecificStatement("sinodb", "bulkInsertProperty", "insertProperty_batch");
+    addDatabaseSpecificStatement("sinodb", "bulkInsertProcessDefinition", "insertProcessDefinition_batch");
+    addDatabaseSpecificStatement("sinodb", "bulkInsertModel", "insertModel_batch");
+    addDatabaseSpecificStatement("sinodb", "bulkInsertMembership", "insertMembership_batch");
+    addDatabaseSpecificStatement("sinodb", "bulkInsertTimer", "insertTimer_batch");
+    addDatabaseSpecificStatement("sinodb", "bulkInsertMessage", "insertMessage_batch");
+    addDatabaseSpecificStatement("sinodb", "bulkInsertIdentityInfo", "insertIdentityInfo_batch");
+    addDatabaseSpecificStatement("sinodb", "bulkInsertIdentityLink", "insertIdentityLink_batch");
+    addDatabaseSpecificStatement("sinodb", "bulkInsertMembership", "insertMembership_batch");
+    addDatabaseSpecificStatement("sinodb", "bulkInsertTimer", "insertTimer_batch");
+    addDatabaseSpecificStatement("sinodb", "bulkInsertMessage", "insertMessage_batch");
+    addDatabaseSpecificStatement("sinodb", "bulkInsertHistoricVariableInstance", "insertHistoricVariableInstance_batch");
+    addDatabaseSpecificStatement("sinodb", "bulkInsertHistoricTaskInstance", "insertHistoricTaskInstance_batch");
+    addDatabaseSpecificStatement("sinodb", "bulkInsertHistoricProcessInstance", "insertHistoricProcessInstance_batch");
+    addDatabaseSpecificStatement("sinodb", "bulkInsertHistoricIdentityLink", "insertHistoricIdentityLink_batch");
+    addDatabaseSpecificStatement("sinodb", "bulkInsertHistoricDetailVariableInstanceUpdate", "insertHistoricDetailVariableInstanceUpdate_batch");
+    addDatabaseSpecificStatement("sinodb", "bulkInsertHistoricFormProperty", "insertHistoricFormProperty_batch");
+    addDatabaseSpecificStatement("sinodb", "bulkInsertHistoricActivityInstance", "insertHistoricActivityInstance_batch");
+    addDatabaseSpecificStatement("sinodb", "bulkInsertGroup", "insertGroup_batch");
+    addDatabaseSpecificStatement("sinodb", "bulkInsertExecution", "insertExecution_batch");
+    addDatabaseSpecificStatement("sinodb", "bulkInsertMessageEventSubscription", "insertMessageEventSubscription_batch");
+    addDatabaseSpecificStatement("sinodb", "bulkInsertSignalEventSubscription", "insertSignalEventSubscription_batch");
+    addDatabaseSpecificStatement("sinodb", "bulkInsertCompensateEventSubscription", "insertCompensateEventSubscription_batch");
+    addDatabaseSpecificStatement("sinodb", "bulkInsertEventLogEntry", "insertEventLogEntry_batch");
+    addDatabaseSpecificStatement("sinodb", "bulkInsertDeployment", "insertDeployment_batch");
+    addDatabaseSpecificStatement("sinodb", "bulkInsertComment", "insertComment_batch");
+    addDatabaseSpecificStatement("sinodb", "bulkInsertByteArray", "insertByteArray_batch");
+    addDatabaseSpecificStatement("sinodb", "bulkInsertEventLogEntry", "insertEventLogEntry_batch");
+    addDatabaseSpecificStatement("sinodb", "bulkInsertDeployment", "insertDeployment_batch");
+    addDatabaseSpecificStatement("sinodb", "bulkInsertComment", "insertComment_batch");
+    addDatabaseSpecificStatement("sinodb", "bulkInsertByteArray", "insertByteArray_batch");
+    addDatabaseSpecificStatement("sinodb", "bulkInsertAttachment", "insertAttachment_batch");
   }
   
   
