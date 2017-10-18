@@ -922,7 +922,9 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
 
 	protected void initMybatisTypeHandlers(Configuration configuration) {
     configuration.getTypeHandlerRegistry().register(VariableType.class, JdbcType.VARCHAR, new IbatisVariableTypeHandler());
-    configuration.getTypeHandlerRegistry().register(String.class, JdbcType.LONGVARCHAR, new StringTypeHandler());
+    if("sinodb".equals(databaseType)||"informix".equals(databaseType)){
+      configuration.getTypeHandlerRegistry().register(String.class, JdbcType.LONGVARCHAR, new StringTypeHandler());
+    }
   }
 
 	protected void initCustomMybatisMappers(Configuration configuration) {
